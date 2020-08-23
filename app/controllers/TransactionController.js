@@ -69,6 +69,9 @@ exports.createTransaction = async (req, res, next) => {
 
 exports.updateTransaction = async (req, res, next) => {
   try {
+    const validate = validationResult(req);
+    if (!validate.isEmpty()) { return MSG.sendResponse(res, 'UPDATE_USER_TRANSACTION_FAILED', validate.array()); }
+
     const params = req.body;
     params.updatedAt = moment().format('YYYY-DD-MM, h:mm:ss');
     const result = await Transaction.updateTransaction(params);

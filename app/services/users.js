@@ -15,6 +15,18 @@ exports.getUserByEmailUsername = async params => {
   });
 };
 
+exports.checkExist = async params => {
+  return Users.findOne({
+    where: {
+      [Op.or]: {
+        email: params.email,
+        username: params.username
+
+      }
+    }
+  });
+};
+
 exports.createUser = async params => {
   return Users.create(params);
 };

@@ -3,6 +3,7 @@ const md5 = require('md5');
 const Users = require('../services/users');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const { validationResult } = require('express-validator');
 
 exports.login = async (req, res, next) => {
   try {
@@ -32,11 +33,16 @@ exports.login = async (req, res, next) => {
 
 exports.register = async (req, res, next) => {
   try {
+    const validate = validationResult(req);
+    if (!validate.isEmpty()) { return MSG.sendResponse(res, 'REGISTER_FAILED', validate.array()); }
+
     const params = req.body;
+    const user = await Users.checkExist(params);
+    if (user) return MSG.sendResponse(res, 'USERNAME_EMAIL_ALREADY_EXIST');
+
     params.password = bcrypt.hashSync(params.password, 10);
-    const user = await Users.createUser(params);
-    params.password = bcrypt;
-    return MSG.sendResponse(res, 'REGISTER_SUCCESS', user);
+    const result = await Users.createUser(params);
+    return MSG.sendResponse(res, 'REGISTER_SUCCESS', result);
   } catch (error) {
     console.log(error);
     return MSG.sendResponse(res, 'REGISTER_FAILED');

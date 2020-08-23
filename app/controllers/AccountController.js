@@ -1,5 +1,6 @@
 const Account = require('../services/finance_account');
 const moment = require('moment');
+const { validationResult } = require('express-validator');
 
 exports.getUserAccount = async (req, res, next) => {
   try {
@@ -45,6 +46,9 @@ exports.getAccountById = async (req, res, next) => {
 
 exports.createAccount = async (req, res, next) => {
   try {
+    const validate = validationResult(req);
+    if (!validate.isEmpty()) { return MSG.sendResponse(res, 'CREATE_USER_ACCOUNT_FAILED', validate.array()); }
+
     const params = req.body;
     const user = req.user;
     params.id_user = user.user_id;
@@ -58,6 +62,9 @@ exports.createAccount = async (req, res, next) => {
 
 exports.updateAccount = async (req, res, next) => {
   try {
+    const validate = validationResult(req);
+    if (!validate.isEmpty()) { return MSG.sendResponse(res, 'UPDATE_USER_ACCOUNT_FAILED', validate.array()); }
+
     const params = req.body;
     params.updatedAt = moment().format('YYYY-DD-MM, h:mm:ss');
     const result = await Account.updateAccount(params);

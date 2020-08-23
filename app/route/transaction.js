@@ -9,7 +9,7 @@ router.get('/user-transaction/:id', AccessMidleware.checkAccess, TransactionCont
 router.get('/monthly-report', AccessMidleware.checkAccess, TransactionController.getMonthlyReport);
 router.get('/daily-report', AccessMidleware.checkAccess, TransactionController.getDailyReport);
 router.post('/create-transaction', [AccessMidleware.checkAccess, Validator.validate('post_transaction')], TransactionController.createTransaction);
-router.put('/update-transaction', AccessMidleware.checkAccess, TransactionController.updateTransaction);
+router.put('/update-transaction', [AccessMidleware.checkAccess, Validator.validate('put_transaction')], TransactionController.updateTransaction);
 router.patch('/:purpose/:id', AccessMidleware.checkAccess, TransactionController.deleteRestoreTransaction);
 router.delete('/:purpose/:id', AccessMidleware.checkAccess, TransactionController.deleteRestoreTransaction);
 
