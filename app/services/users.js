@@ -30,3 +30,11 @@ exports.checkExist = async params => {
 exports.createUser = async params => {
   return Users.create(params);
 };
+
+exports.updateUser = async params => {
+  return Users.update(params, {
+    where: {
+      id: params.id
+    }
+  });
+};

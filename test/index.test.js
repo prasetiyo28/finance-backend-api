@@ -20,8 +20,8 @@ describe('Transaction Endpoint Userdetail', function () {
         .request(app)
         .post('/auth/login')
         .send({
-          username: 'kimballcho',
-          password: '12345678'
+          username: 'example@email.com',
+          password: 'secret'
         }).then(res => {
           access = res.body.data.access_token;
           expect(res.status).to.equal(200);

@@ -60,6 +60,12 @@ exports.cek = async (req, res, next) => {
 
 exports.logout = async (req, res, next) => {
   try {
+    const user = req.user;
+    const params = {
+      id: user.user_id,
+      last_login: new Date()
+    };
+    await Users.updateUser(params);
     const key = req.header('access_token');
     redisCache.del(key);
     return MSG.sendResponse(res, 'LOGOUT_SUCCESS');
