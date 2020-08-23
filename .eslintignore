@@ -4,6 +4,7 @@
 out
 gen
 app/models/
+app/helpers/validation.js
 app/seeders/
 log/
 node_modules/

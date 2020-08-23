@@ -1,5 +1,7 @@
 const Transaction = require('../services/finance_transaction');
 const moment = require('moment');
+const { validationResult } = require('express-validator');
+
 exports.getUserTransaction = async (req, res, next) => {
   try {
     const user = req.user;
@@ -51,6 +53,9 @@ exports.getUserTransactionById = async (req, res, next) => {
 
 exports.createTransaction = async (req, res, next) => {
   try {
+    const validate = validationResult(req);
+    if (!validate.isEmpty()) { return MSG.sendResponse(res, 'CREATE_USER_TRANSACTION_FAILED', validate.array()); }
+
     const params = req.body;
     const user = req.user;
     params.id_user = user.user_id;
