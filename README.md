@@ -1,7 +1,7 @@
 # Finance Backend API - Paper . id
 Rest Api Service Backend dibangun menggunakan NodeJS(ExpressJS) , MySql dan Redis sebaga data storage
 
-##Requirement
+## Requirement
 - local redis on port 6379
 - NPM version 6.90
 
