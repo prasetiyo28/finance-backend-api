@@ -37,7 +37,9 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {});
   finance_transaction.associate = function(models) {
-    // associations can be defined here
+    finance_transaction.belongsTo(models.finance_account, {
+      foreignKey: 'id_account'
+     });
   };
   return finance_transaction;
 };

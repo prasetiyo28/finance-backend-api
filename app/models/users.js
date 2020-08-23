@@ -38,6 +38,10 @@ module.exports = function(sequelize, DataTypes){
   });
   users.associate = function(models) {
     // associations can be defined here
+    users.hasMany(models.finance_account, {
+      foreignKey: 'id_user'
+    });
+    
   };
   return users;
 };

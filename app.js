@@ -61,7 +61,6 @@ require('./app/route')(app);
 
 app.use(function (err, req, res, next) {
   console.log(err);
-
   return MSG.sendResponse(res, 'INTERNAL_ERROR');
 });
 

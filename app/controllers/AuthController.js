@@ -1,20 +1,8 @@
-// const redisCache = require('../lib/RedisCache');
-// const md5 = require('md5');
-// const bcrypt = require('bcrypt');
+const redisCache = require('../lib/RedisCache');
+const md5 = require('md5');
 const Users = require('../services/users');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
-// exports.setRedisDummy = (req, res, next) => {
-//   const currentTime = new Date().toISOString();
-//   const random = Math.random().toString();
-//   const accessKey = md5(currentTime + random);
-//   const user = { access_key: accessKey, id_userdetail: 312, username: 'gramedia-999' };
-//   redisCache.set(accessKey, user);
-//   redisCache.expire(accessKey, 1800);
-
-//   res.status(200).json({ success: true, msg_code: 'GET_DUMMY_TOKEN_SUCCESS', msg_client: 'Get Dummy Token Success', data: { access_key: accessKey } });
-// };
 
 exports.login = async (req, res, next) => {
   try {
@@ -26,7 +14,14 @@ exports.login = async (req, res, next) => {
     if (checkPassword === false) return MSG.sendResponse(res, 'PASSWORD_NOT_MATCH');
     const result = { user_id: user.id, username: user.username, email: user.email };
     const token = jwt.sign(result, process.env.JWT_SECRET, { expiresIn: '24h' });
-    result.access_token = token;
+
+    const currentTime = new Date().toISOString();
+    const random = Math.random().toString();
+    const accessKey = md5(currentTime + random);
+    const authToken = { access_key: accessKey, token: token };
+    redisCache.set(accessKey, authToken);
+    redisCache.expire(accessKey, 18000);
+    result.access_token = accessKey;
 
     return MSG.sendResponse(res, 'LOGIN_SUCCESS', result, true);
   } catch (error) {
@@ -54,5 +49,16 @@ exports.cek = async (req, res, next) => {
   } catch (error) {
     console.log(error);
     return MSG.sendResponse(res, 'CEK_FAILED');
+  }
+};
+
+exports.logout = async (req, res, next) => {
+  try {
+    const key = req.header('access_token');
+    redisCache.del(key);
+    return MSG.sendResponse(res, 'LOGOUT_SUCCESS');
+  } catch (error) {
+    console.log(error);
+    return MSG.sendResponse(res, 'LOGOUT_FAILED');
   }
 };
