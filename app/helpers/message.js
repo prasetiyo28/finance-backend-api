@@ -3,7 +3,7 @@ const async = require('async');
 const misc = require('../helpers/misc');
 
 const message = {
-  sendResponse: (res,msgCode, data ,msgSuccess) => {
+  sendResponse: (res, msgCode, data, msgSuccess) => {
     return misc.responses(
       res,
       {
@@ -14,8 +14,6 @@ const message = {
       data
     );
   }
-}
-  
-
+};
 
 module.exports = message;

@@ -23,7 +23,7 @@ module.exports = {
       last_login: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue:'0000-00-00 00:00:00'
+        defaultValue: '0000-00-00 00:00:00'
       },
       createdAt: {
         allowNull: false,

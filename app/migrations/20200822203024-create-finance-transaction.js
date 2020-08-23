@@ -10,39 +10,39 @@ module.exports = {
       },
       id_user: {
         type: Sequelize.INTEGER,
-        allowNull : false
+        allowNull: false
       },
       finance_name: {
         type: Sequelize.STRING(100),
-        allowNull : false
+        allowNull: false
       },
       id_account: {
         type: Sequelize.INTEGER,
-        allowNull : false
+        allowNull: false
       },
       amount: {
         type: Sequelize.DOUBLE,
-        allowNull : false
+        allowNull: false
       },
       description: {
         type: Sequelize.TEXT,
-        allowNull : true,
-        defaultValue : null
+        allowNull: true,
+        defaultValue: null
       },
       deleted: {
         type: Sequelize.BOOLEAN,
-        allowNull : false,
-        defaultValue : false,
+        allowNull: false,
+        defaultValue: false
       },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue : Sequelize.Now
+        defaultValue: Sequelize.Now
       },
       updatedAt: {
         allowNull: true,
         type: Sequelize.DATE,
-        defaultValue : null
+        defaultValue: null
       }
     });
   },

@@ -98,5 +98,3 @@ exports.validate = method => {
       break;
   }
 };
-
-

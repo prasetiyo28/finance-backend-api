@@ -10,25 +10,25 @@ module.exports = {
       },
       id_user: {
         type: Sequelize.INTEGER,
-        allowNull : false
+        allowNull: false
       },
       name: {
         type: Sequelize.STRING(100),
-        allowNull : false
+        allowNull: false
       },
       type: {
         type: Sequelize.STRING(50),
-        allowNull : false
+        allowNull: false
       },
       description: {
         type: Sequelize.TEXT,
-        allowNull : true,
-        defaultValue : null
+        allowNull: true,
+        defaultValue: null
       },
       deleted: {
         type: Sequelize.BOOLEAN,
-        allowNull : false,
-        defaultValue : false
+        allowNull: false,
+        defaultValue: false
       },
       createdAt: {
         allowNull: false,
@@ -38,7 +38,7 @@ module.exports = {
       updatedAt: {
         allowNull: true,
         type: Sequelize.DATE,
-        defaultValue : null
+        defaultValue: null
       }
     });
   },

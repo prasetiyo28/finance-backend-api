@@ -11,6 +11,11 @@
     "chai-http": "^4.3.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
     "express": "^4.17.1",
     "express-request-id": "^1.4.1",
     "express-validator": "^6.6.0",
@@ -22,6 +27,7 @@
     "mysql": "^2.18.1",
     "mysql2": "^2.1.0",
     "node-redis-scan": "^1.2.1",
+    "nodemon": "^2.0.4",
     "nyc": "^15.1.0",
     "path": "^0.12.7",
     "redis": "^3.0.2",
@@ -29,10 +35,14 @@
     "www": "0.0.0",
     "x-xss-protection": "^1.3.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint": "^5.16.0"
+  },
   "scripts": {
     "start": "node ./bin/www",
     "test": "mocha ./test/index.test.js --timeout 20000 --exit",
+    "start-dev": "NODE_ENV=development node_modules/.bin/nodemon bin/www --exec \"npm run lint && node\"",
+    "lint": "node_modules/.bin/eslint app/ --fix",
     "coverage": "nyc npm run test"
   },
   "keywords": [

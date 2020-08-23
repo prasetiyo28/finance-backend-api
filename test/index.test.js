@@ -6,24 +6,17 @@ const app = require("../app");
 chai.use(chatHttp);
 const expect = chai.expect;
 
+describe("Testing get all transaction list: ", () => {
+    it("should getting all transaction list", done => {
 
-describe("Testing login with method post: ", () => {
-    it("should login and show user data", done => {
-        const user = {
-            "username" : "kimballcho@gmail.com",
-            "password" : "12345678"   
-        }
         chai
             .request(app)
-            .post("/auth/login")
-            // .send(user)
+            .get("/transaction/user-transaction")
             .set("Accept", "application/json")
+            .set("access_token", 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozLCJ1c2VybmFtZSI6ImtpbWJhbGxjaG8iLCJlbWFpbCI6ImtpbWJhbGxjaG9AZ21haWwuY29tIiwiaWF0Ijox')
             .end((err, res)=> {
-                expect(res.status).to.equal(200);
-                // expect(res).to.have.property('body');
-                // expect(res.body.message).to.equal(true);
+                res.should.have.status(200);
             });
             done();
     });
 });
-
