@@ -21,7 +21,7 @@ exports.login = async (req, res, next) => {
     const accessKey = md5(currentTime + random);
     const authToken = { access_key: accessKey, token: token };
     redisCache.set(accessKey, authToken);
-    redisCache.expire(accessKey, 18000);
+    redisCache.expire(accessKey, 86400);
     result.access_token = accessKey;
 
     return MSG.sendResponse(res, 'LOGIN_SUCCESS', result, true);
